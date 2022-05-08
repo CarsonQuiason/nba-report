@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
-    public class AllGames
+    public class Games
     {
-        List<GameData> games = new List<GameData>();
-        public AllGames(){}
+        public List<GameData> gamesList = new List<GameData>();
+        public Games(){}
 
         public virtual async Task getData() {}
 
         public bool containsGames()
         {
-            if (games.Count == 0)
+            if (gamesList.Count == 0)
             {
                 return false;
             }

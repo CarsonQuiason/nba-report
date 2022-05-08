@@ -21,8 +21,8 @@ namespace NBAReport
     /// </summary>
     public partial class MainWindow : Window
     {
-        GameDate gd;
-        LiveGame lg;
+        DatedGames dgs;
+        LiveGames lgs;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,33 +30,71 @@ namespace NBAReport
 
         public void ChangeCalendarVisibility(object sender, RoutedEventArgs e)
         {
-            gameDate.Visibility = Visibility.Visible;
+            datedGamesCalendar.Visibility = Visibility.Visible;
             backBtn.Visibility = Visibility.Hidden;
-            gameDateList.Visibility = Visibility.Hidden;
+            datedGamesList.Visibility = Visibility.Hidden;
         }
 
         private async void DateChanged(object sender, SelectionChangedEventArgs e)
         {
-            gameDate.Visibility = Visibility.Hidden;
+            datedGamesCalendar.Visibility = Visibility.Hidden;
             backBtn.Visibility = Visibility.Visible;
-            gameDateList.Visibility = Visibility.Visible;
-            DateTime DTdate = (DateTime)gameDate.SelectedDate;
+            datedGamesList.Visibility = Visibility.Visible;
+            DateTime DTdate = (DateTime)datedGamesCalendar.SelectedDate;
             string date = DTdate.ToString("yyyy-MM-dd");
-            gd = new GameDate(date);
-            gameDateTitle.Content = "Games on " + gd.Date;
-            Console.Write(date);
+            dgs = new DatedGames(date);
+            datedGamesTitle.Content = "Games on " + dgs.Date;
+            addToList(false);
         }
 
-    private async void OnLoad(object sender, RoutedEventArgs e)
+        private async void addToList(bool isLive)
         {
-            lg = new LiveGame();
-            await lg.getData();
-
-            if (!lg.containsGames)
+            if (isLive)
             {
-                ListBoxItem lbi = new ListBoxItem();
-                lbi.Content = "There are no live games. Check back later.";
-                liveGameList.Items.Add(lbi);
+
+            }
+            else
+            {
+                await Task.Run(() => dgs.getData());
+                foreach (GameData g in dgs.gameList)
+                {
+                    datedGamesList.Items.Add(g);
+                    datedGamesList.DisplayMemberPath = "Title";
+                }
+            }
+        }
+
+        private async void OnLoad(object sender, RoutedEventArgs e)
+        {
+            lgs = new LiveGames();
+            //dgs = new DatedGames("2021-02-12");
+            //await dgs.getData();
+            //await lg.getData();
+
+            //if// (!lgs.containsGames)
+            //{
+                //ListBoxItem lbi = new ListBoxItem();
+                //lbi.Content = "There are no live games. Check back later.";
+                //liveGameList.Items.Add(lbi);
+            //}
+        }
+
+        private void updateGameInfo(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                GameData g = ((sender as ListBox).SelectedItem as GameData);
+                nameOne.Content = g.HomeName + " (HOME)";
+                nameTwo.Content = g.AwayName + " (AWAY)";
+                scoreOne.Content = g.HomeScore.ToString();
+                scoreTwo.Content = g.AwayScore.ToString();
+                logoOne.Source = new BitmapImage(new Uri(g.HomeLogo, UriKind.RelativeOrAbsolute));
+                logoTwo.Source = new BitmapImage(new Uri(g.AwayLogo, UriKind.RelativeOrAbsolute));
+                arenaName.Content = "@ " + g.ArenaName;
+            }
+            catch
+            {
+
             }
         }
 	}

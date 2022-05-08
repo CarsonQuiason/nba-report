@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
-	public class LiveGame : AllGames
+	public class LiveGames : Games
 	{
-		public bool containsGames = false;
-		public LiveGame() {}
+		public LiveGames() {}
 
 		public async Task getData()
         {
@@ -29,8 +29,11 @@ namespace NBAReport
 			{
 				response.EnsureSuccessStatusCode();
 				var body = await response.Content.ReadAsStringAsync();
+				JToken token = JToken.Parse(body);
+				var responses = token.SelectToken("response");
+				Console.WriteLine(responses);
 				Console.WriteLine(body);
-				}
 			}
+		}
 	}
 }

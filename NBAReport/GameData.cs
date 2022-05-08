@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
-    class GameData
+    public class GameData
     {
         public string HomeName { get; }
         public string AwayName { get; }
@@ -18,6 +18,22 @@ namespace NBAReport
         public string TimeLeft { get; }
         public int Quarter { get; }
 
+        public string Title { get;  }
+
+        //Dated Game
+        public GameData(string homeName, string awayName, string homeLogo, string awayLogo, int homeScore, int awayScore, string arenaName)
+        {
+            HomeName = homeName;
+            AwayName = awayName;
+            HomeLogo = homeLogo;
+            AwayLogo = awayLogo;
+            HomeScore = homeScore;
+            AwayScore = awayScore;
+            ArenaName = arenaName;
+            Title = homeName + " vs. " + awayName; 
+        }
+
+        //Live Game
         public GameData(string homeName, string awayName, string homeLogo, string awayLogo, int homeScore, int awayScore, string arenaName, string timeLeft, int quarter)
         {
             HomeName = homeName;
@@ -29,6 +45,7 @@ namespace NBAReport
             ArenaName = arenaName;
             TimeLeft = timeLeft;
             Quarter = quarter;
+            Title = homeName + " vs. " + awayName;
         }
 
 
