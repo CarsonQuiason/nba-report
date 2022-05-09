@@ -16,8 +16,6 @@ namespace NBAReport
     {
         
         public string Date;
-        public List<GameData> gameList = new List<GameData>();
-
 
         public DatedGames(string date)
         {
@@ -25,6 +23,12 @@ namespace NBAReport
         }
         public DatedGames() {}
 
+        /*
+         * Grabs all NBA games given a certain date
+         * Makes an api call to https://api-nba-v1.p.rapidapi.com/games?date=[DATE]
+         * Parses JSON data, assigns to 
+         * Stores games in List<GameData>
+         */
         public override async Task getData()
         {
             var client = new HttpClient();
@@ -35,7 +39,7 @@ namespace NBAReport
                 Headers =
                     {
                         { "X-RapidAPI-Host", "api-nba-v1.p.rapidapi.com" },
-                        { "X-RapidAPI-Key", "" },
+                        { "X-RapidAPI-Key", "50b01ed9e4mshab8784dd94a8e93p1f7bb5jsn40b28478e578" },
                     },
             };
             using (var response = await client.SendAsync(request))

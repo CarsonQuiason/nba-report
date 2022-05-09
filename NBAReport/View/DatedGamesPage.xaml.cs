@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,15 +16,29 @@ using System.Windows.Shapes;
 namespace NBAReport
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DatedGamesPage : Page
     {
         DatedGames dgs;
-        LiveGames lgs;
-        public MainWindow()
+        public DatedGamesPage()
         {
             InitializeComponent();
+        }
+
+
+        private async void addToList()
+        {
+            await Task.Run(() => dgs.getData());
+            foreach (GameData g in dgs.gameList)
+            {
+                datedGamesList.Items.Add(g);
+                datedGamesList.DisplayMemberPath = "Title";
+            }
+            if (datedGamesList.Items.Count == 0)
+            {
+                datedGamesList.Items.Add("There are no live games. Check back later.");
+            }
         }
 
         public void ChangeCalendarVisibility(object sender, RoutedEventArgs e)
@@ -44,42 +57,10 @@ namespace NBAReport
             string date = DTdate.ToString("yyyy-MM-dd");
             dgs = new DatedGames(date);
             datedGamesTitle.Content = "Games on " + dgs.Date;
-            addToList(false);
+            addToList();
         }
 
-        private async void addToList(bool isLive)
-        {
-            if (isLive)
-            {
-
-            }
-            else
-            {
-                await Task.Run(() => dgs.getData());
-                foreach (GameData g in dgs.gameList)
-                {
-                    datedGamesList.Items.Add(g);
-                    datedGamesList.DisplayMemberPath = "Title";
-                }
-            }
-        }
-
-        private async void OnLoad(object sender, RoutedEventArgs e)
-        {
-            lgs = new LiveGames();
-            //dgs = new DatedGames("2021-02-12");
-            //await dgs.getData();
-            //await lg.getData();
-
-            //if// (!lgs.containsGames)
-            //{
-                //ListBoxItem lbi = new ListBoxItem();
-                //lbi.Content = "There are no live games. Check back later.";
-                //liveGameList.Items.Add(lbi);
-            //}
-        }
-
-        private void updateGameInfo(object sender, SelectionChangedEventArgs e)
+        private void updateDateGameInfo(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -92,10 +73,7 @@ namespace NBAReport
                 logoTwo.Source = new BitmapImage(new Uri(g.AwayLogo, UriKind.RelativeOrAbsolute));
                 arenaName.Content = "@ " + g.ArenaName;
             }
-            catch
-            {
-
-            }
+            catch { }
         }
-	}
+    }
 }
