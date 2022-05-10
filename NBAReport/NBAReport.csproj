@@ -60,9 +60,16 @@
     </ApplicationDefinition>
     <Compile Include="Models\PlayerData.cs" />
     <Compile Include="Services\SearchPlayer.cs" />
+    <Compile Include="View\LiveGamesPage.xaml.cs">
+      <DependentUpon>LiveGamesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SearchPlayerPage.xaml.cs">
       <DependentUpon>SearchPlayerPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\LiveGamesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -124,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\loadIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

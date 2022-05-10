@@ -8,10 +8,21 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
+
+	/*
+	 * Class makes an API call to get information about NBA games that are currently live
+	 */
 	public partial class LiveGames : Games
 	{
 		public LiveGames() {}
 
+
+		/*
+         * Grabs all NBA live NBA games
+         * Makes an api call to https://api-nba-v1.p.rapidapi.com/games?live=all
+         * Parses JSON data, assigns to a newly created GameData class
+         * Stores GameData in List<GameData>
+         */
 		public async Task getData()
         {
 			var client = new HttpClient();
@@ -41,9 +52,8 @@ namespace NBAReport
 					int homeScore = Convert.ToInt32(game["scores"]["home"]["points"]);
 					int awayScore = Convert.ToInt32(game["scores"]["visitors"]["points"]);
 					string arenaName = game["arena"]["name"].ToString();
-					string timeLeft = game["date"]["duration"].ToString();
 					int quarter = Convert.ToInt32(game["periods"]["current"]);
-					GameData gamedata = new GameData(homeName, awayName, homeLogo, awayLogo, homeScore, awayScore, arenaName, timeLeft, quarter);
+					GameData gamedata = new GameData(homeName, awayName, homeLogo, awayLogo, homeScore, awayScore, arenaName, quarter);
 					gameList.Add(gamedata);
 				}
 			}

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
+
+    //GameData contains information pertaining to a game's information.
     public class GameData
     {
         public string HomeName { get; }
@@ -15,7 +17,6 @@ namespace NBAReport
         public int HomeScore { get; }
         public int AwayScore { get; }
         public string ArenaName { get; }
-        public string TimeLeft { get; }
         public int Quarter { get; }
 
         public string Title { get;  }
@@ -33,8 +34,8 @@ namespace NBAReport
             Title = homeName + " vs. " + awayName; 
         }
 
-        //Live Game
-        public GameData(string homeName, string awayName, string homeLogo, string awayLogo, int homeScore, int awayScore, string arenaName, string timeLeft, int quarter)
+        //Constructor overload for Live Game
+        public GameData(string homeName, string awayName, string homeLogo, string awayLogo, int homeScore, int awayScore, string arenaName, int quarter)
         {
             HomeName = homeName;
             AwayName = awayName;
@@ -43,7 +44,6 @@ namespace NBAReport
             HomeScore = homeScore;
             AwayScore = awayScore;
             ArenaName = arenaName;
-            TimeLeft = timeLeft;
             Quarter = quarter;
             Title = homeName + " vs. " + awayName;
         }

@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace NBAReport
 {
-    /// <summary>
-    /// Interaction logic for Page1.xaml
-    /// </summary>
+    
     public partial class DatedGamesPage : Page
     {
         DatedGames dgs;
@@ -26,7 +24,7 @@ namespace NBAReport
             InitializeComponent();
         }
 
-
+        //Adds Games based on Date to ListBox
         private async void addToList()
         {
             await Task.Run(() => dgs.getData());
@@ -50,9 +48,8 @@ namespace NBAReport
 
         private async void DateChanged(object sender, SelectionChangedEventArgs e)
         {
-            datedGamesCalendar.Visibility = Visibility.Hidden;
-            backBtn.Visibility = Visibility.Visible;
-            datedGamesList.Visibility = Visibility.Visible;
+            datedGamesGrid.Visibility = Visibility.Visible;
+            searchGrid.Visibility = Visibility.Hidden;
             DateTime DTdate = (DateTime)datedGamesCalendar.SelectedDate;
             string date = DTdate.ToString("yyyy-MM-dd");
             dgs = new DatedGames(date);
@@ -60,6 +57,7 @@ namespace NBAReport
             addToList();
         }
 
+        //Updates view based on data from listbox selection
         private void updateDateGameInfo(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -73,7 +71,22 @@ namespace NBAReport
                 logoTwo.Source = new BitmapImage(new Uri(g.AwayLogo, UriKind.RelativeOrAbsolute));
                 arenaName.Content = "@ " + g.ArenaName;
             }
-            catch { }
+            catch (NullReferenceException)
+            {
+                nameOne.Content = "NONE (HOME)";
+                nameTwo.Content = "NONE (AWAY)";
+                scoreOne.Content = "0";
+                scoreTwo.Content = "0";
+                logoOne.Source = new BitmapImage(new Uri(@"../Images/loadIcon.png", UriKind.Relative));
+                logoTwo.Source = new BitmapImage(new Uri(@"../Images/loadIcon.png", UriKind.Relative));
+                arenaName.Content = "@ NOWHERE";
+            }
+        }
+        private void Return_To_Search(object sender, RoutedEventArgs e)
+        {
+            datedGamesGrid.Visibility = Visibility.Hidden;
+            searchGrid.Visibility = Visibility.Visible;
+            datedGamesList.Items.Clear();
         }
     }
 }

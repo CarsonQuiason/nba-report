@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,16 +15,22 @@ using System.Windows.Shapes;
 
 namespace NBAReport
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for LiveGamesPage.xaml
+    /// </summary>
+    public partial class LiveGamesPage : Page
     {
         LiveGames lgs;
-        public MainWindow()
+
+        public LiveGamesPage()
         {
             InitializeComponent();
         }
 
+        //Adds GameData to listbox
         private async void addToList()
         {
+            liveGamesList.Items.Clear();
             await Task.Run(() => lgs.getData());
             foreach (GameData g in lgs.gameList)
             {
@@ -36,7 +41,7 @@ namespace NBAReport
             {
                 liveGamesList.Items.Add("There are no live games. Check back later.");
             }
-         }
+        }
 
         private async void OnLoad(object sender, RoutedEventArgs e)
         {
@@ -44,6 +49,7 @@ namespace NBAReport
             addToList();
         }
 
+        //Updates view based on selected listbox element
         private void updateLiveGameInfo(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -57,34 +63,14 @@ namespace NBAReport
                 logoTwo.Source = new BitmapImage(new Uri(g.AwayLogo, UriKind.RelativeOrAbsolute));
                 arenaName.Content = "@ " + g.ArenaName;
                 quarter.Content = "Q" + g.Quarter;
-                
-            }
-            catch
-            {
 
             }
+            catch{}
         }
         private void Refresh(object sender, RoutedEventArgs e)
         {
             lgs = new LiveGames();
-            liveGamesList.Items.Clear();
             addToList();
-        }
-
-
-        //Navigation
-        private void Search_Game(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = new DatedGamesPage();
-        }
-        private void Search_Player(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = new SearchPlayerPage();
-        }
-
-        private void Live_Game(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = new LiveGamesPage();
         }
     }
 }

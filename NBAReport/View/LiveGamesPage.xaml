@@ -1,56 +1,19 @@
-﻿<Window x:Class="NBAReport.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NBAReport"
-        mc:Ignorable="d"
-        Loaded="OnLoad"
-        Title="NBA Report" Height="600" Width="550">
+﻿<Page x:Class="NBAReport.LiveGamesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NBAReport"
+      mc:Ignorable="d" 
+      Loaded="OnLoad"
+      Title="NBA Report" Height="600" Width="550">
+
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="../Images/background.jpg" Stretch="UniformToFill"></ImageBrush>
         </Grid.Background>
-
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,511">
-            <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="132" Height="37" Visibility="Visible" BorderBrush="Transparent" Click="Search_Game" Margin="80,0,0,0">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF353535" Opacity="0.25"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/searchImage.png"/>
-                    <TextBlock Text="Search Games" Height="16" Foreground="White"/>
-                </StackPanel>
-            </Button>
-            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="106" Height="37" Focusable="True" BorderBrush="#00707070" Margin="0,0,0,0" Click="Live_Game">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF353535" Opacity="0.25"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/liveImage.png" Height="30" Width="27"/>
-                    <TextBlock Text="Live Games" Height="16" Width="61" Foreground="White"/>
-                </StackPanel>
-            </Button>
-            <Button HorizontalAlignment="Right" Width="132" Height="37" BorderBrush="#00707070" Click="Search_Player">
-                <Button.Background>
-                    <SolidColorBrush Color="#FF353535" Opacity="0.25"/>
-                </Button.Background>
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/searchImage.png"/>
-                    <TextBlock Text="Search Players" Height="17" Foreground="White"/>
-                </StackPanel>
-            </Button>
-        </StackPanel>
-        <Grid Margin="0,37,10,267">
+        <Grid Margin="5,4,5,300">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220*"/>
                 <ColumnDefinition Width="50"/>
@@ -107,15 +70,7 @@
                     <SolidColorBrush Color="#000E0E0E" Opacity="0.25"/>
                 </Label.Background>
             </Label>
-            <Label x:Name="quarter" Content="Q1" HorizontalAlignment="Center" Margin="0,120,0,0" VerticalAlignment="Top" Foreground="White" Width="25" RenderTransformOrigin="0.489,0.502" Grid.Column="1" Height="25">
-                <Label.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="0.895"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="0.229"/>
-                    </TransformGroup>
-                </Label.RenderTransform>
+            <Label x:Name="quarter" Content="Q1" HorizontalAlignment="Left" Margin="12,130,0,0" VerticalAlignment="Top" Foreground="White" Width="30" RenderTransformOrigin="0.489,0.502" Grid.Column="1">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
@@ -124,7 +79,7 @@
                 </Label.Background>
             </Label>
         </Grid>
-        <Grid HorizontalAlignment="Center" Height="294" Margin="0,230,0,0" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Center" Height="294" Margin="0,201,0,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="113*"/>
                 <ColumnDefinition Width="47*"/>
@@ -134,7 +89,7 @@
                     <SolidColorBrush Color="#FF3E3E3E" Opacity="0.5"/>
                 </ListBox.Background>
             </ListBox>
-            <Label Content="Live Games" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.448,0.179" FontWeight="Bold" Foreground="White" Margin="204,7,0,0" Width="74">
+            <Label Content="Live Games" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.448,0.179" FontWeight="Bold" Foreground="White" Margin="203,7,0,0">
                 <Label.Effect>
                     <DropShadowEffect/>
                 </Label.Effect>
@@ -152,6 +107,5 @@
             </Label>
             <Button Content="Refresh" HorizontalAlignment="Left" Margin="214,274,0,0" VerticalAlignment="Top" Height="20" Width="52" Foreground="White" Background="#3F2D2D2D" Click="Refresh"/>
         </Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Margin="0,44,0,0"/>
     </Grid>
-</Window>
+</Page>

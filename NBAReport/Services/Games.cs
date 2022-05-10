@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace NBAReport
 {
+    /*
+     * Base Game Class, provides structure for inherited classes
+     */
     public class Games
     {
         public List<GameData> gameList = new List<GameData>();

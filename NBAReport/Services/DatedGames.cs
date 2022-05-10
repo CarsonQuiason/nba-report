@@ -26,8 +26,8 @@ namespace NBAReport
         /*
          * Grabs all NBA games given a certain date
          * Makes an api call to https://api-nba-v1.p.rapidapi.com/games?date=[DATE]
-         * Parses JSON data, assigns to 
-         * Stores games in List<GameData>
+         * Parses JSON data, assigns to GameData class
+         * Stores GameData in List<GameData>
          */
         public override async Task getData()
         {
