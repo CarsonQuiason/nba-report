@@ -38,7 +38,7 @@ namespace NBAReport
 				Headers =
 				{
 					{ "X-RapidAPI-Host", "api-nba-v1.p.rapidapi.com" },
-					{ "X-RapidAPI-Key", "50b01ed9e4mshab8784dd94a8e93p1f7bb5jsn40b28478e578" },
+					{ "X-RapidAPI-Key", "" },
 				},
 			};
 			using (var response = await client.SendAsync(request))
